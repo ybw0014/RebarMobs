@@ -2,8 +2,26 @@ addon: "RebarMobs"
 
 item:
   soul_shard:
-    name: "Soul Shard"
+    name: "<reset>Soul Shard"
     lore: |-
       <arrow> <attr>Mob Type:</attr> %mob-type%
-      <arrow> <attr>Tier:</attr> %tiers%
+      <arrow> <attr>Tier:</attr> %tier%
       <arrow> <attr>Souls:</attr> %souls%
+    no_mob_type: "<red>Not Bound"
+  soul_altar:
+    name: "<reset>Soul Altar"
+    lore: |-
+      <star> Multiblock
+      <arrow> An ancient altar that whispers of transformation.
+      <arrow> <insn>Right click</insn> with ingredient item in hand
+      <arrow> <red>The whole multiblock will be destroyed
+      
+      <u>Components</u>
+      <diamond> 1x <yellow><lang:rebarmobs.item.soul_altar.name/></yellow>
+      <diamond> 4x <yellow><lang:block.minecraft.quartz_block/></yellow>
+      <diamond> 4x <yellow><lang:block.minecraft.obsidian/></yellow>
+
+guide:
+  page:
+    rebar_mobs: "<reset>Rebar Mobs"
+    resources_magic: "<reset>Magic Resources"

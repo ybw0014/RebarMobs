@@ -1,0 +1,3 @@
+rebarmobs:diamod_to_soul_shard:
+  input: minecraft:diamond
+  result: rebarmobs:soul_shard

@@ -12,10 +12,10 @@ plugins {
     id("com.gradleup.shadow") version "9.3.2"
     id("de.eldoria.plugin-yml.paper") version "0.8.0"
     id("xyz.jpenilla.run-paper") version "3.0.2"
+    id("com.diffplug.spotless") version "8.3.0"
 }
 
 repositories {
-//    mavenLocal()
     mavenCentral()
     maven("https://central.sonatype.com/repository/maven-snapshots/")
     maven("https://repo.papermc.io/repository/maven-public/")
@@ -33,7 +33,8 @@ dependencies {
     compileOnly(kotlin("stdlib")) // loaded through library loader
     compileOnly(kotlin("reflect")) // loaded through library loader
     compileOnlyAndTestImpl("io.papermc.paper:paper-api:$minecraftVersion-R0.1-SNAPSHOT")
-    compileOnlyAndTestImpl("com.github.ybw0014:rebar:ad7673142a")
+    compileOnlyAndTestImpl("io.github.pylonmc:rebar:$rebarVersion")
+    compileOnlyAndTestImpl("io.github.pylonmc:pylon:$pylonVersion")
     implementation("org.bstats:bstats-bukkit:3.1.0")
     implementation("net.guizhanss:guizhanlib-all:3.0.0-SNAPSHOT")
     implementation("net.guizhanss:guizhanlib-kt-all:0.3.0-SNAPSHOT")
@@ -61,6 +62,12 @@ kotlin {
     }
 }
 
+configure<com.diffplug.gradle.spotless.SpotlessExtension> {
+    kotlin {
+        ktlint()
+    }
+}
+
 tasks.shadowJar {
     fun doRelocate(from: String, to: String? = null) {
         val last = to ?: from.split(".").last()
@@ -85,6 +92,10 @@ paper {
         register("Rebar") {
             load = PaperPluginDescription.RelativeLoadOrder.BEFORE
         }
+        register("Pylon") {
+            required = false
+            load = PaperPluginDescription.RelativeLoadOrder.BEFORE
+        }
     }
 }
 
@@ -93,7 +104,7 @@ tasks.runServer {
         // Rebar
         github("pylonmc", "rebar", rebarVersion, "rebar-$rebarVersion.jar")
         // Pylon
-        github("pylonmc", "pylon", pylonVersion, "pylon-$pylonVersion.jar")
+//        github("pylonmc", "pylon", pylonVersion, "pylon-$pylonVersion.jar")
     }
     jvmArgs("-Dcom.mojang.eula.agree=true")
     minecraftVersion(minecraftVersion)

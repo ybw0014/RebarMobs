@@ -4,13 +4,14 @@ import net.byteflux.libby.Library
 import net.guizhanss.guizhanlib.libraries.BukkitLibraryManager
 import net.guizhanss.guizhanlib.rebar.addon.AbstractAddon
 import net.guizhanss.rebarmobs.config.RebarMobsConfig
+import net.guizhanss.rebarmobs.guide.RebarMobsPages
 import net.guizhanss.rebarmobs.items.RebarMobsItems
+import net.guizhanss.rebarmobs.recipes.RebarMobsRecipes
 import org.bstats.bukkit.Metrics
 import org.bukkit.Material
 import java.util.Locale
 
 class RebarMobs : AbstractAddon(GITHUB_USER, GITHUB_REPO, GITHUB_BRANCH, AUTO_UPDATE_KEY) {
-
     override val languages = setOf(Locale.ENGLISH)
 
     override val material = Material.DRAGON_HEAD
@@ -28,10 +29,20 @@ class RebarMobs : AbstractAddon(GITHUB_USER, GITHUB_REPO, GITHUB_BRANCH, AUTO_UP
         val manager = BukkitLibraryManager(this)
         manager.addRepository(centralRepo)
         manager.loadLibrary(
-            Library.builder().groupId("org.jetbrains.kotlin").artifactId("kotlin-stdlib").version("2.3.10").build()
+            Library
+                .builder()
+                .groupId("org.jetbrains.kotlin")
+                .artifactId("kotlin-stdlib")
+                .version("2.3.10")
+                .build(),
         )
         manager.loadLibrary(
-            Library.builder().groupId("org.jetbrains.kotlin").artifactId("kotlin-reflect").version("2.3.10").build()
+            Library
+                .builder()
+                .groupId("org.jetbrains.kotlin")
+                .artifactId("kotlin-reflect")
+                .version("2.3.10")
+                .build(),
         )
 
         logger.info("Loaded all required libraries.")
@@ -42,22 +53,29 @@ class RebarMobs : AbstractAddon(GITHUB_USER, GITHUB_REPO, GITHUB_BRANCH, AUTO_UP
 
         configs = RebarMobsConfig(this)
 
+        RebarMobsPages
         RebarMobsItems
+        RebarMobsRecipes
+
+        registerListeners()
     }
 
     override fun disable() {
     }
 
-    override fun autoUpdate() {
+    protected override fun autoUpdate() {
         // TODO: impl auto update logic
     }
 
     private fun setupMetrics() {
-        val metrics = Metrics(this, 23025)
+        val metrics = Metrics(this, 30082)
+    }
+
+    private fun registerListeners() {
+        // nothing yet
     }
 
     companion object {
-
         private const val GITHUB_USER = "ybw0014"
         private const val GITHUB_REPO = "RebarMobs"
         private const val GITHUB_BRANCH = "master"

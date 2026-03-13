@@ -13,8 +13,8 @@ item:
     lore: |-
       <star> Multiblock
       <arrow> An ancient altar that whispers of transformation.
-      <arrow> <insn>Right click</insn> with ingredient item in hand
-      <arrow> <red>The whole multiblock will be destroyed
+      <arrow> <insn>Right click</insn> with ingredient item in hand.
+      <arrow> <red>The whole multiblock will be destroyed.</red>
       
       <u>Components</u>
       <diamond> 1x <yellow><lang:rebarmobs.item.soul_altar.name/></yellow>

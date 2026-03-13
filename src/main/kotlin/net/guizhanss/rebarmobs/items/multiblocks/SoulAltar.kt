@@ -1,24 +1,25 @@
 package net.guizhanss.rebarmobs.items.multiblocks
 
+import io.github.pylonmc.rebar.block.BlockStorage
 import io.github.pylonmc.rebar.block.RebarBlock
-import io.github.pylonmc.rebar.block.base.RebarBreakHandler
 import io.github.pylonmc.rebar.block.base.RebarInteractBlock
-import io.github.pylonmc.rebar.block.base.RebarRecipeProcessor
 import io.github.pylonmc.rebar.block.base.RebarSimpleMultiblock
 import io.github.pylonmc.rebar.block.base.RebarSimpleMultiblock.MultiblockComponent
 import io.github.pylonmc.rebar.block.base.RebarSimpleMultiblock.VanillaMultiblockComponent
+import io.github.pylonmc.rebar.block.context.BlockBreakContext
 import io.github.pylonmc.rebar.block.context.BlockCreateContext
 import io.github.pylonmc.rebar.event.api.annotation.MultiHandler
 import io.github.pylonmc.rebar.item.RebarItem
-import io.github.pylonmc.rebar.registry.RebarRegistry
 import io.papermc.paper.event.block.BlockBreakBlockEvent
+import net.guizhanss.guizhanlib.minecraft.utils.InventoryUtil
 import net.guizhanss.rebarmobs.recipes.SoulAltarRecipe
 import org.bukkit.Material
+import org.bukkit.Particle
+import org.bukkit.Sound
 import org.bukkit.block.Block
 import org.bukkit.event.Event
 import org.bukkit.event.EventPriority
 import org.bukkit.event.block.Action
-import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.ItemStack
@@ -28,11 +29,9 @@ import org.joml.Vector3i
 class SoulAltar :
     RebarBlock,
     RebarSimpleMultiblock,
-    RebarInteractBlock,
-    RebarRecipeProcessor<SoulAltarRecipe> {
+    RebarInteractBlock {
     constructor(block: Block, context: BlockCreateContext) : super(block, context) {
         setMultiblockDirection(context.facing)
-        setRecipeType(SoulAltarRecipe.RECIPE_TYPE)
     }
 
     constructor(block: Block, pdc: PersistentDataContainer) : super(block, pdc)
@@ -69,19 +68,25 @@ class SoulAltar :
         for (recipe in SoulAltarRecipe.RECIPE_TYPE) {
             if (!recipe.input.isSimilar(item)) continue
 
+            // remove surrounding blocks
             for ((vec, _) in components) {
                 val b = block.getRelative(vec.x, vec.y, vec.z)
                 if (!BlockBreakBlockEvent(b, block, listOf()).callEvent()) continue
+                b.world.playSound(b.location, Sound.BLOCK_STONE_BREAK, 1.0f, 1.0f)
+                b.world.spawnParticle(Particle.BLOCK, b.location.add(0.5, 0.5, 0.5), 30, b.blockData)
                 b.type = Material.AIR
             }
-            if (!BlockBreakBlockEvent(block, block, listOf()).callEvent()) break
-            block.type = Material.AIR
-            break
-        }
-    }
 
-    override fun onRecipeFinished(recipe: SoulAltarRecipe) {
-        TODO("Not yet implemented")
+            // remove self
+            block.world.playSound(block.location, Sound.BLOCK_GLASS_BREAK, 1.0f, 1.0f)
+            block.world.spawnParticle(Particle.BLOCK, block.location.add(0.5, 0.5, 0.5), 50, block.blockData)
+            val context = BlockBreakContext.PluginBreak(block, false)
+            BlockStorage.breakBlock(block, context)
+
+            // spawn result
+            InventoryUtil.push(event.player, recipe.result)
+            return
+        }
     }
 
     class Item(

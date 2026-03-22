@@ -70,7 +70,12 @@ configure<com.diffplug.gradle.spotless.SpotlessExtension> {
         formatAnnotations()
     }
     kotlin {
-        ktlint()
+        ktlint().editorConfigOverride(
+            mapOf(
+                "ktlint_code_style" to "intellij_idea",
+                "ktlint_standard_no-unused-imports" to "enabled"
+            )
+        )
     }
 }
 

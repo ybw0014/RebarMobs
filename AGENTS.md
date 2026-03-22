@@ -106,3 +106,8 @@ baseCommand(plugin, "cmd") {
 - Run `./gradlew clean shadowJar` after code changes to verify type safety
 - New functions: single-purpose, colocated with related code
 - External dependencies: only when necessary, explain why
+
+## 6. Resources
+
+Rebar repository: https://github.com/pylonmc/rebar
+Pylon repository: https://github.com/pylonmc/pylon

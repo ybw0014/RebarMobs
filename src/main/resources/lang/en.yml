@@ -25,6 +25,7 @@ guide:
   page:
     rebar_mobs: "<reset>Rebar Mobs"
     resources_magic: "<reset>Magic Resources"
+    blocks: "<reset>Blocks"
 
 enchantment:
   soul_stealer: "Soul Stealer"
@@ -36,3 +37,6 @@ command:
     invalid_enchantment: "<red>Invalid enchantment."
     invalid_level: "<red>Invalid enchantment level."
     success: "<green>Successfully obtained an enchantment book with %enchantment%, level %level%"
+  print_pdc:
+    description: "Print the PersistentDataContainer of the item holding in main hand"
+    no_item: "<red>No item in main hand!"

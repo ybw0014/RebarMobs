@@ -13,6 +13,7 @@ import io.github.pylonmc.rebar.item.RebarItem
 import io.papermc.paper.event.block.BlockBreakBlockEvent
 import net.guizhanss.guizhanlib.minecraft.utils.InventoryUtil
 import net.guizhanss.rebarmobs.recipes.SoulAltarRecipe
+import org.bukkit.GameMode
 import org.bukkit.Material
 import org.bukkit.Particle
 import org.bukkit.Sound
@@ -71,6 +72,11 @@ class SoulAltar :
 
         for (recipe in SoulAltarRecipe.RECIPE_TYPE) {
             if (!recipe.input.isSimilar(item)) continue
+
+            // consume ingredient
+            if (event.player.gameMode != GameMode.CREATIVE || event.player.gameMode != GameMode.SPECTATOR) {
+                item.amount -= recipe.input.amount
+            }
 
             // remove surrounding blocks
             for ((vec, _) in components) {

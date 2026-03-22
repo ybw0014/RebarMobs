@@ -20,12 +20,15 @@ object RebarMobsPages {
     val MAIN = SimpleStaticGuidePage(RebarMobsKeys.REBAR_MOBS)
     val RESOURCES_MAGIC: SimpleStaticGuidePage =
         if (isPylonEnabled) PylonPages.MAGIC else SimpleStaticGuidePage(RebarMobsKeys.RESOURCES_MAGIC)
+    val BLOCKS: SimpleStaticGuidePage =
+        if (isPylonEnabled) PylonPages.SIMPLE_MACHINES else SimpleStaticGuidePage(RebarMobsKeys.BLOCKS)
 
     init {
         RebarGuide.rootPage.addPage(Material.CREEPER_HEAD, MAIN)
 
         if (!isPylonEnabled) {
             MAIN.addPage(Material.ECHO_SHARD, RESOURCES_MAGIC)
+            MAIN.addPage(Material.BRICKS, BLOCKS)
         }
     }
 }

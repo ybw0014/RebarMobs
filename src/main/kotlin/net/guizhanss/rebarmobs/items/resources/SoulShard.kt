@@ -2,7 +2,6 @@ package net.guizhanss.rebarmobs.items.resources
 
 import io.github.pylonmc.rebar.datatypes.RebarSerializers
 import io.github.pylonmc.rebar.i18n.RebarArgument
-import io.github.pylonmc.rebar.i18n.RebarTranslator.Companion.translate
 import io.github.pylonmc.rebar.item.RebarItem
 import io.papermc.paper.registry.RegistryAccess
 import io.papermc.paper.registry.RegistryKey
@@ -10,6 +9,7 @@ import net.guizhanss.guizhanlib.kt.minecraft.extensions.isAir
 import net.guizhanss.guizhanlib.kt.rebar.utils.persistentItemData
 import net.guizhanss.rebarmobs.datatypes.RebarMobsDataTypes
 import net.guizhanss.rebarmobs.utils.RebarMobsKeys
+import net.guizhanss.rebarmobs.utils.refreshLore
 import net.guizhanss.rebarmobs.utils.rmKey
 import net.guizhanss.rebarmobs.utils.translatableKey
 import net.kyori.adventure.text.Component
@@ -35,13 +35,7 @@ class SoulShard(
             ),
             RebarArgument.of(
                 "tier",
-                when { // TODO: temp code to test lore changes
-                    soulAmount < 5 -> "5"
-                    soulAmount < 10 -> "10"
-                    soulAmount < 15 -> "15"
-                    soulAmount < 20 -> "20"
-                    else -> "MANY"
-                },
+                "TODO", // TODO: tier display
             ),
             RebarArgument.of("souls", soulAmount),
         )
@@ -117,13 +111,7 @@ class SoulShard(
             val applicableShard = findApplicableShard(p, e.entity.type) ?: return
             val shard = applicableShard.first
             shard.soulAmount += 1 + extraSouls
-            shard.stack.translate(p.locale(), shard.getPlaceholders())
-            println(shard.stack)
-            if (applicableShard.second == -1) {
-                p.inventory.setItemInOffHand(shard.stack)
-            } else {
-                p.inventory.setItem(applicableShard.second, shard.stack)
-            }
+            shard.refreshLore(p.locale())
         }
     }
 }

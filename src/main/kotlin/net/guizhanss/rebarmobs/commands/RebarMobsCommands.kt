@@ -16,6 +16,7 @@ object RebarMobsCommands {
             baseCommand(plugin, "rebarmobs") {
                 descriptionTranslatable(rmTranslatableKey("command.description"))
                 permission = "rebarmobs.command"
+                aliases = listOf("rm", "rebarm", "rmobs")
 
                 subCommand("enchantment_book") {
                     descriptionTranslatable(rmTranslatableKey("command.enchantment_book.description"))
@@ -24,7 +25,7 @@ object RebarMobsCommands {
                     playerOnly()
                     execute(EnchantmentBookHandler)
                     tabComplete { _, args ->
-                        return@tabComplete when (args.size) {
+                        when (args.size) {
                             1 -> {
                                 RegistryAccess
                                     .registryAccess()

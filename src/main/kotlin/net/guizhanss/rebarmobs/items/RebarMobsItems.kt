@@ -31,7 +31,7 @@ object RebarMobsItems : RebarItemRegistry(RebarMobs.instance()) {
         key = RebarMobsKeys.SOUL_ALTAR
         material = Material.GLOWSTONE
         postRegister {
-            RebarMobsPages.RESOURCES_MAGIC.addItem(it)
+            RebarMobsPages.BLOCKS.addItem(it)
         }
     }
     // </editor-fold>

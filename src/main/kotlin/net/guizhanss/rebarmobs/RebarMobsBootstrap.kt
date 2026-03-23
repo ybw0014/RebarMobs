@@ -24,8 +24,8 @@ class RebarMobsBootstrap : PluginBootstrap {
                         .anvilCost(3)
                         .maxLevel(5)
                         .weight(10)
-                        .minimumCost(EnchantmentRegistryEntry.EnchantmentCost.of(1, 1))
-                        .maximumCost(EnchantmentRegistryEntry.EnchantmentCost.of(3, 1))
+                        .minimumCost(EnchantmentRegistryEntry.EnchantmentCost.of(0, 11))
+                        .maximumCost(EnchantmentRegistryEntry.EnchantmentCost.of(44, 0))
                         .activeSlots(EquipmentSlotGroup.MAINHAND)
                 }
             },

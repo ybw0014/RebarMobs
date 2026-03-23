@@ -1,0 +1,26 @@
+disabled-entities:
+  - elder_guardian
+  - ender_dragon
+  - wither
+
+tiers:
+  - requirement: 64
+    ignore-light: false
+    spawn-interval: 20
+    spawn-count: 2
+  - requirement: 128
+    ignore-light: false
+    spawn-interval: 10
+    spawn-count: 4
+  - requirement: 256
+    ignore-light: false
+    spawn-interval: 6
+    spawn-count: 4
+  - requirement: 512
+    ignore-light: true
+    spawn-interval: 4
+    spawn-count: 4
+  - requirement: 1024
+    ignore-light: true
+    spawn-interval: 2
+    spawn-count: 6

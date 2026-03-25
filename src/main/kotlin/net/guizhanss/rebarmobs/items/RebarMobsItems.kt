@@ -5,11 +5,13 @@ import io.papermc.paper.datacomponent.DataComponentTypes
 import net.guizhanss.guizhanlib.kt.rebar.items.register.RebarItemRegistry
 import net.guizhanss.guizhanlib.kt.rebar.items.register.block
 import net.guizhanss.guizhanlib.kt.rebar.items.register.item
+import net.guizhanss.guizhanlib.kt.rebar.items.register.weapon
 import net.guizhanss.rebarmobs.RebarMobs
 import net.guizhanss.rebarmobs.guide.RebarMobsPages
 import net.guizhanss.rebarmobs.items.blocks.SoulCage
 import net.guizhanss.rebarmobs.items.multiblocks.SoulAltar
 import net.guizhanss.rebarmobs.items.resources.SoulShard
+import net.guizhanss.rebarmobs.items.weapons.VileSword
 import net.guizhanss.rebarmobs.utils.RebarMobsKeys
 import org.bukkit.Material
 import org.bukkit.inventory.ItemFlag
@@ -72,6 +74,16 @@ object RebarMobsItems : RebarItemRegistry(RebarMobs.instance()) {
                 meta.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP)
             }
         }
+        postRegister {
+            RebarMobsPages.MAIN.addItem(it)
+        }
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Weapons" defaultstate="collapsed">
+    val VILE_SWORD by weapon<VileSword> {
+        key = RebarMobsKeys.VILE_SWORD
+        material = Material.IRON_SWORD
         postRegister {
             RebarMobsPages.MAIN.addItem(it)
         }

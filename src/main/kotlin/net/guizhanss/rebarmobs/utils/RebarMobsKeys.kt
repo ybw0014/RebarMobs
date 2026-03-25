@@ -28,7 +28,9 @@ object RebarMobsKeys {
     val CORRUPTED_INGOT = rmKey("corrupted_ingot")
     val SOUL_ALTAR = rmKey("soul_altar")
     val SOUL_CAGE = rmKey("soul_cage")
+    val VILE_SWORD = rmKey("vile_sword")
 
     // misc
     val SOUL_CAGE_SPAWNED = rmKey("soul_cage_spawned")
+    val VILE_SWORD_KILLED = rmKey("vile_sword_killed")
 }

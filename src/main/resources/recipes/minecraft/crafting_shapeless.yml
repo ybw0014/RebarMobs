@@ -1,15 +1,16 @@
 rebarmobs:soul_altar:
   ingredients:
-    - minecraft:glowstone: 1
+    - minecraft:glowstone
   result:
-    rebarmobs:soul_altar: 1
+    rebarmobs:soul_altar
   category: building
 
 rebarmobs:corrupted_essence:
   ingredients:
-    - minecraft:lapis_lazuli: 1
-    - minecraft:redstone: 1
-    - minecraft:obsidian: 2
+    - minecraft:lapis_lazuli
+    - minecraft:redstone
+    - minecraft:obsidian
+    - minecraft:obsidian
   result:
-    rebarmobs:corrupted_essence: 1
+    rebarmobs:corrupted_essence
   category: misc

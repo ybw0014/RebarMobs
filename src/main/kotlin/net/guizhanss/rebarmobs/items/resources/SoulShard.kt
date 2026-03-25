@@ -63,7 +63,7 @@ class SoulShard(
         // TODO: maybe some animations of souls get released
     }
 
-    override fun toString() = "SoulShard{validItem=${!stack.isAir()}, mobType=${mobType}, soulAmount=$soulAmount}"
+    override fun toString() = "SoulShard{validItem=${!stack.isAir()}, mobType=$mobType, soulAmount=$soulAmount}"
 
     data class SoulShardTierConfig(
         val requirement: Int,
@@ -160,10 +160,17 @@ class SoulShard(
             if (entity.type in DISABLED_ENTITY_TYPES) return
             if (entity.persistentDataContainer.has(RebarMobsKeys.SOUL_CAGE_SPAWNED)) return
 
-            val extraSouls = p.inventory.itemInMainHand.getEnchantmentLevel(soulStealerEnchant)
+            // check shard
             val applicableShard = findApplicableShard(p, e.entity.type) ?: return
             val shard = applicableShard.first
-            shard.soulAmount += 1 + extraSouls
+
+            // calculate extra souls from soul stealer enchantment and vile sword
+            var souls = 1
+            if (entity.persistentDataContainer.has(RebarMobsKeys.VILE_SWORD_KILLED)) {
+                souls++
+            }
+            souls += p.inventory.itemInMainHand.getEnchantmentLevel(soulStealerEnchant)
+            shard.soulAmount += souls
             shard.refreshLore(p.locale())
         }
     }

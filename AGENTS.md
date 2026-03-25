@@ -57,10 +57,15 @@ class MyItem(item: ItemStack) : RebarItem(item) {
 
 ### Translation System
 
-Use `RebarArgument.of("name", value)` for named placeholders. Translation files use `%name%` format, NOT `{0}`:
+Don't use hard coded messages/item names that are visible to players, they should all be translatable.
+
+Language file are under `src/main/resources/lang/[LOCALE].yml`, supports Minimessage with some extended tags specified by Rebar [here](https://github.com/pylonmc/rebar/blob/master/rebar/src/main/kotlin/io/github/pylonmc/rebar/item/builder/RebarMiniMessage.kt).
+
+Use `RebarArgument.of("name", value)` for named placeholders. Placeholders use `%name%` format, NOT `{0}`:
 
 ```kotlin
-Component.translatable(key).arguments(
+Component.translatable(
+    key,
     RebarArgument.of("enchantment", name),
     RebarArgument.of("level", level)
 )

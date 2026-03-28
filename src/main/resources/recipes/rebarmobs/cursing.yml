@@ -1,0 +1,12 @@
+rebarmobs:vile_sword_frame_to_vile_sword:
+  input: rebarmobs:vile_sword_frame
+  result: rebarmobs:vile_sword
+
+rebarmobs:glowstone_dust_to_vile_dust:
+  input: minecraft:glowstone_dust
+  result:
+    rebarmobs:vile_dust: 2
+
+rebarmobs:amethyst_shard_to_soul_shard:
+  input: minecraft:amethyst_shard
+  result: rebarmobs:soul_shard

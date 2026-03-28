@@ -4,13 +4,16 @@ import io.github.pylonmc.rebar.item.RebarItem
 import io.papermc.paper.datacomponent.DataComponentTypes
 import net.guizhanss.guizhanlib.kt.rebar.items.register.RebarItemRegistry
 import net.guizhanss.guizhanlib.kt.rebar.items.register.block
+import net.guizhanss.guizhanlib.kt.rebar.items.register.blockOnly
 import net.guizhanss.guizhanlib.kt.rebar.items.register.item
 import net.guizhanss.guizhanlib.kt.rebar.items.register.weapon
 import net.guizhanss.rebarmobs.RebarMobs
 import net.guizhanss.rebarmobs.guide.RebarMobsPages
+import net.guizhanss.rebarmobs.items.blocks.CursedFire
 import net.guizhanss.rebarmobs.items.blocks.SoulCage
 import net.guizhanss.rebarmobs.items.multiblocks.SoulAltar
 import net.guizhanss.rebarmobs.items.resources.SoulShard
+import net.guizhanss.rebarmobs.items.tools.QuartzAndSteel
 import net.guizhanss.rebarmobs.items.weapons.VileSword
 import net.guizhanss.rebarmobs.utils.RebarMobsKeys
 import org.bukkit.Material
@@ -53,6 +56,14 @@ object RebarMobsItems : RebarItemRegistry(RebarMobs.instance()) {
             RebarMobsPages.MAIN.addItem(it)
         }
     }
+
+    val VILE_SWORD_FRAME by item<RebarItem> {
+        key = RebarMobsKeys.VILE_SWORD_FRAME
+        material = Material.STICK
+        postRegister {
+            RebarMobsPages.MAIN.addItem(it)
+        }
+    }
     // </editor-fold>
 
     // <editor-fold desc="Multiblocks" defaultstate="collapsed">
@@ -74,6 +85,21 @@ object RebarMobsItems : RebarItemRegistry(RebarMobs.instance()) {
                 meta.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP)
             }
         }
+        postRegister {
+            RebarMobsPages.MAIN.addItem(it)
+        }
+    }
+
+    val CURSED_FIRE by blockOnly<CursedFire> {
+        key = RebarMobsKeys.CURSED_FIRE
+        material = Material.SOUL_FIRE
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Tools" defaultstate="collapsed">
+    val QUARTZ_AND_STEEL by item<QuartzAndSteel> {
+        key = RebarMobsKeys.QUARTZ_AND_STEEL
+        material = Material.FLINT_AND_STEEL
         postRegister {
             RebarMobsPages.MAIN.addItem(it)
         }

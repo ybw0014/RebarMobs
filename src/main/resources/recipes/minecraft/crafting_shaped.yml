@@ -20,3 +20,14 @@ rebarmobs:soul_cage:
     C: rebarmobs:corrupted_ingot
   result: rebarmobs:soul_cage
   category: misc
+
+rebarmobs:vile_sword_frame:
+  pattern:
+    - " I "
+    - " I "
+    - " S "
+  key:
+    I: rebarmobs:corrupted_ingot
+    S: minecraft:stick
+  result: rebarmobs:vile_sword_frame
+  category: misc

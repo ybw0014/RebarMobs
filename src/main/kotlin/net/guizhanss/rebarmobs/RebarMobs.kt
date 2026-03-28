@@ -25,8 +25,6 @@ class RebarMobs : AbstractAddon(GITHUB_USER, GITHUB_REPO, GITHUB_BRANCH, AUTO_UP
         RebarMobsRecipes
 
         RebarMobsCommands.register(this)
-
-        registerListeners()
     }
 
     override fun disable() {
@@ -38,10 +36,6 @@ class RebarMobs : AbstractAddon(GITHUB_USER, GITHUB_REPO, GITHUB_BRANCH, AUTO_UP
 
     private fun setupMetrics() {
         val metrics = Metrics(this, 30082)
-    }
-
-    private fun registerListeners() {
-        // Listeners as companion objects of RebarItems are automatically registered via registry.
     }
 
     companion object {

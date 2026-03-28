@@ -14,3 +14,11 @@ rebarmobs:corrupted_essence:
   result:
     rebarmobs:corrupted_essence
   category: misc
+
+rebarmobs:quartz_and_steel:
+  ingredients:
+    - minecraft:quartz
+    - minecraft:iron_ingot
+  result:
+    rebarmobs:quartz_and_steel
+  category: misc

@@ -3,6 +3,7 @@ package net.guizhanss.rebarmobs.items.resources
 import io.github.pylonmc.rebar.config.Settings
 import io.github.pylonmc.rebar.config.adapter.ConfigAdapter
 import io.github.pylonmc.rebar.datatypes.RebarSerializers
+import io.github.pylonmc.rebar.event.api.annotation.MultiHandler
 import io.github.pylonmc.rebar.i18n.RebarArgument
 import io.github.pylonmc.rebar.item.RebarItem
 import io.github.pylonmc.rebar.item.base.RebarInteractor
@@ -20,6 +21,7 @@ import net.kyori.adventure.text.Component
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.Player
+import org.bukkit.event.Event
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
@@ -51,11 +53,12 @@ class SoulShard(
         RebarArgument.of("souls", soulAmount),
     )
 
+    @MultiHandler([EventPriority.MONITOR])
     override fun onUsedToClick(
         event: PlayerInteractEvent,
         priority: EventPriority,
     ) {
-        if (event.action != Action.RIGHT_CLICK_AIR) return
+        if (event.action != Action.RIGHT_CLICK_AIR || event.useItemInHand() == Event.Result.DENY) return
         val shard = from<SoulShard>(event.item) ?: return
         shard.soulAmount = 0
         shard.mobType = null

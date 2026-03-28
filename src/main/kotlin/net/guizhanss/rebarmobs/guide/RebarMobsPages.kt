@@ -17,6 +17,7 @@ object RebarMobsPages {
             .isPluginEnabled("Pylon")
 
     val MAIN = SimpleStaticGuidePage(RebarMobsKeys.REBAR_MOBS)
+
 //    val RESOURCES_MAGIC: SimpleStaticGuidePage =
 //        if (isPylonEnabled) PylonPages.MAGIC else SimpleStaticGuidePage(RebarMobsKeys.RESOURCES_MAGIC)
 //    val MULTIBLOCKS: SimpleStaticGuidePage =

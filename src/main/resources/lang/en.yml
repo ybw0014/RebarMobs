@@ -19,6 +19,8 @@ item:
     name: "<reset>Vile Dust"
   corrupted_ingot:
     name: "<reset>Corrupted Ingot"
+  vile_sword_frame:
+    name: "<reset>Vile Sword Frame"
   soul_altar:
     name: "<reset>Soul Altar"
     lore: |-
@@ -42,6 +44,10 @@ item:
     waila:
       empty: "Soul Cage | <red>Empty"
       filled: "Soul Cage | %mob-type% | Tier %tier%"
+  cursed_fire:
+    name: "<reset>Cursed Fire"
+  quartz_and_steel:
+    name: "<reset>Quartz and Steel"
   vile_sword:
     name: "<reset>Vile Sword"
     lore: |-

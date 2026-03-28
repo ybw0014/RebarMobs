@@ -3,19 +3,24 @@ package net.guizhanss.rebarmobs.recipes
 import io.github.pylonmc.rebar.config.ConfigSection
 import io.github.pylonmc.rebar.config.adapter.ConfigAdapter
 import io.github.pylonmc.rebar.guide.button.ItemButton
+import io.github.pylonmc.rebar.item.builder.ItemStackBuilder
 import io.github.pylonmc.rebar.recipe.ConfigurableRecipeType
 import io.github.pylonmc.rebar.recipe.FluidOrItem
 import io.github.pylonmc.rebar.recipe.RebarRecipe
 import io.github.pylonmc.rebar.recipe.RecipeInput
 import io.github.pylonmc.rebar.util.gui.GuiItems
+import net.guizhanss.guizhanlib.kt.minecraft.extensions.toItem
 import net.guizhanss.rebarmobs.items.RebarMobsItems
 import net.guizhanss.rebarmobs.utils.RebarMobsKeys
+import net.guizhanss.rebarmobs.utils.rmTranslatableKey
+import net.kyori.adventure.text.Component
+import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import xyz.xenondevs.invui.gui.Gui
 
 @JvmRecord
-data class SoulAltarRecipe(
+data class CursingRecipe(
     @get:JvmName("getKey_")
     val key: NamespacedKey,
     val input: ItemStack,
@@ -30,23 +35,34 @@ data class SoulAltarRecipe(
         .builder()
         .setStructure(
             "# # # # # # # # #",
-            "# # # # # # # # #",
-            "# i # # a # # o #",
-            "# # # # # # # # #",
+            "# # # # q # # # #",
+            "# i # # f # # o #",
+            "# # # # s # # # #",
             "# # # # # # # # #",
         ).addIngredient('#', GuiItems.backgroundBlack())
-        .addIngredient('a', ItemButton.from(RebarMobsItems.SOUL_ALTAR))
+        .addIngredient('s', ItemButton.from(Material.SOUL_SAND.toItem()))
+        .addIngredient(
+            'f',
+            ItemButton.from(
+                ItemStackBuilder.gui(Material.SOUL_CAMPFIRE, RebarMobsKeys.CURSED_FIRE).name(
+                    Component.translatable(
+                        rmTranslatableKey("item.${RebarMobsKeys.CURSED_FIRE.key}.name"),
+                    ),
+                ).build(),
+            ),
+        )
+        .addIngredient('q', ItemButton.from(RebarMobsItems.QUARTZ_AND_STEEL))
         .addIngredient('i', ItemButton.from(input))
         .addIngredient('o', ItemButton.from(result))
         .build()
 
     companion object {
         val RECIPE_TYPE =
-            object : ConfigurableRecipeType<SoulAltarRecipe>(RebarMobsKeys.SOUL_ALTAR) {
+            object : ConfigurableRecipeType<CursingRecipe>(RebarMobsKeys.CURSING) {
                 override fun loadRecipe(
                     key: NamespacedKey,
                     section: ConfigSection,
-                ): SoulAltarRecipe = SoulAltarRecipe(
+                ): CursingRecipe = CursingRecipe(
                     key,
                     section.getOrThrow("input", ConfigAdapter.ITEM_STACK),
                     section.getOrThrow("result", ConfigAdapter.ITEM_STACK),

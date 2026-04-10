@@ -45,7 +45,7 @@ dependencies {
 
 group = "net.guizhanss"
 description = "RebarMobs"
-version = "$pluginVersion-$minecraftVersion"
+version = pluginVersion
 
 val mainPackage = "net.guizhanss.rebarmobs"
 
@@ -59,6 +59,7 @@ kotlin {
     compilerOptions {
         javaParameters = true
         jvmTarget = JvmTarget.JVM_21
+        freeCompilerArgs.add("-Xexplicit-backing-fields")
     }
 }
 

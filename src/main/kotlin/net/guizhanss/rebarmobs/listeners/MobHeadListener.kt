@@ -27,13 +27,10 @@ class MobHeadListener : Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     fun onEntityDeath(e: EntityDeathEvent) {
         val p = e.damageSource.causingEntity as? Player ?: return
-        RebarMobs.instance().pluginLogger.log(Level.INFO, { "Entity died to player" })
 
         val entity = e.entity
         val headItem = RebarMobsItems.MOB_HEADS[entity.type] ?: return
-        RebarMobs.instance().pluginLogger.log(Level.INFO, { "Entity has valid head item" })
         val headConfig = RebarMobs.configs.mobHeadsConfig.value.getEntityConfig(entity.type)
-        RebarMobs.instance().pluginLogger.log(Level.INFO, { "Entity config: $headConfig" })
 
         var chance = headConfig.baseChance
         // check if player is holding Decapitator enchanted item in main hand
@@ -41,8 +38,6 @@ class MobHeadListener : Listener {
         if (!mainHandItem.isAir()) {
             chance += mainHandItem.getEnchantmentLevel(decapitatorEnchantment) * headConfig.decapitatorChance
         }
-
-        RebarMobs.instance().pluginLogger.log(Level.INFO, { "Final chance: $chance" })
 
         if (Random.nextDouble() < chance) {
             entity.world.dropItemNaturally(entity.location, headItem.clone())

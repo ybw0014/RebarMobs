@@ -53,6 +53,132 @@ item:
     lore: |-
       <arrow> Gain 1 extra soul when killing
       <arrow> with this sword in main hand.
+  mob_head_bat:
+    name: "<reset>Bat Head"
+  mob_head_blaze:
+    name: "<reset>Blaze Head"
+  mob_head_cave_spider:
+    name: "<reset>Cave Spider Head"
+  mob_head_chicken:
+    name: "<reset>Chicken Head"
+  mob_head_cow:
+    name: "<reset>Cow Head"
+  mob_head_dolphin:
+    name: "<reset>Dolphin Head"
+  mob_head_drowned:
+    name: "<reset>Drowned Head"
+  mob_head_elder_guardian:
+    name: "<reset>Elder Guardian Head"
+  mob_head_enderman:
+    name: "<reset>Enderman Head"
+  mob_head_evoker:
+    name: "<reset>Evoker Head"
+  mob_head_ghast:
+    name: "<reset>Ghast Head"
+  mob_head_guardian:
+    name: "<reset>Guardian Head"
+  mob_head_horse:
+    name: "<reset>Horse Head"
+  mob_head_husk:
+    name: "<reset>Husk Head"
+  mob_head_illusioner:
+    name: "<reset>Illusioner Head"
+  mob_head_iron_golem:
+    name: "<reset>Iron Golem Head"
+  mob_head_llama:
+    name: "<reset>Llama Head"
+  mob_head_magma_cube:
+    name: "<reset>Magma Cube Head"
+  mob_head_mooshroom:
+    name: "<reset>Mooshroom Head"
+  mob_head_ocelot:
+    name: "<reset>Ocelot Head"
+  mob_head_parrot:
+    name: "<reset>Parrot Head"
+  mob_head_pig:
+    name: "<reset>Pig Head"
+  mob_head_polar_bear:
+    name: "<reset>Polar Bear Head"
+  mob_head_rabbit:
+    name: "<reset>Rabbit Head"
+  mob_head_sheep:
+    name: "<reset>Sheep Head"
+  mob_head_shulker:
+    name: "<reset>Shulker Head"
+  mob_head_slime:
+    name: "<reset>Slime Head"
+  mob_head_spider:
+    name: "<reset>Spider Head"
+  mob_head_squid:
+    name: "<reset>Squid Head"
+  mob_head_stray:
+    name: "<reset>Stray Head"
+  mob_head_turtle:
+    name: "<reset>Turtle Head"
+  mob_head_vex:
+    name: "<reset>Vex Head"
+  mob_head_villager:
+    name: "<reset>Villager Head"
+  mob_head_vindicator:
+    name: "<reset>Vindicator Head"
+  mob_head_witch:
+    name: "<reset>Witch Head"
+  mob_head_wither:
+    name: "<reset>Wither Head"
+  mob_head_zombie_villager:
+    name: "<reset>Zombie Villager Head"
+  mob_head_ravager:
+    name: "<reset>Ravager Head"
+  mob_head_pillager:
+    name: "<reset>Pillager Head"
+  mob_head_fox:
+    name: "<reset>Fox Head"
+  mob_head_panda:
+    name: "<reset>Panda Head"
+  mob_head_wandering_trader:
+    name: "<reset>Wandering Trader Head"
+  mob_head_piglin:
+    name: "<reset>Piglin Head"
+  mob_head_zombified_piglin:
+    name: "<reset>Zombified Piglin Head"
+  mob_head_strider:
+    name: "<reset>Strider Head"
+  mob_head_axolotl:
+    name: "<reset>Axolotl Head"
+  mob_head_glow_squid:
+    name: "<reset>Glow Squid Head"
+  mob_head_goat:
+    name: "<reset>Goat Head"
+  mob_head_allay:
+    name: "<reset>Allay Head"
+  mob_head_frog:
+    name: "<reset>Frog Head"
+  mob_head_tadpole:
+    name: "<reset>Tadpole Head"
+  mob_head_camel:
+    name: "<reset>Camel Head"
+  mob_head_sniffer:
+    name: "<reset>Sniffer Head"
+  mob_head_armadillo:
+    name: "<reset>Armadillo Head"
+  mob_head_bogged:
+    name: "<reset>Bogged Head"
+  mob_head_breeze:
+    name: "<reset>Breeze Head"
+  mob_head_creaking:
+    name: "<reset>Creaking Head"
+  mob_head_happy_ghast:
+    name: "<reset>Happy Ghast Head"
+  mob_head_copper_golem:
+    name: "<reset>Copper Golem Head"
+  mob_head_nautilus:
+    name: "<reset>Nautilus Head"
+  mob_head_zombie_nautilus:
+    name: "<reset>Zombie Nautilus Head"
+  mob_head_camel_husk:
+    name: "<reset>Camel Husk Head"
+  mob_head_parched:
+    name: "<reset>Parched Head"
 
 guide:
   page:

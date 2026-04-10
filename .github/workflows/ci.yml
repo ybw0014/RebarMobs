@@ -70,6 +70,13 @@ jobs:
           echo "Found jar: $JAR_PATH"
           echo "Version: $VERSION"
 
+      - name: Get Minecraft Version
+        id: mc_version
+        run: |
+          MC_VERSION=$(grep "^minecraft.version=" gradle.properties | cut -d'=' -f2)
+          echo "mc_version=$MC_VERSION" >> $GITHUB_OUTPUT
+          echo "Minecraft version: $MC_VERSION"
+
       - name: Create JSON Payload
         id: payload
         run: |
@@ -78,7 +85,8 @@ jobs:
             "version": "${{ steps.version.outputs.version }}",
             "name": "v${{ steps.version.outputs.version }}",
             "channel": "dev",
-            "changelog": "Automated build from GitHub Actions",
+            "changelog": "",
+            "minecraft_versions": ["${{ steps.mc_version.outputs.mc_version }}"],
             "files": ["${{ steps.version.outputs.filename }}"]
           }
           EOF

@@ -34,6 +34,10 @@ jobs:
         id: read_mc_version
         run: |
           MC_VERSION=$(grep "^minecraft.version=" gradle.properties | cut -d'=' -f2)
+          if [ -z "$MC_VERSION" ]; then
+            echo "Error: Failed to read minecraft.version from gradle.properties"
+            exit 1
+          fi
           echo "mc_version=$MC_VERSION" >> $GITHUB_OUTPUT
           echo "Minecraft version: $MC_VERSION"
 
@@ -95,9 +99,18 @@ jobs:
 
       - name: Upload to Guizhan Resources
         run: |
-          curl -X POST "${{ vars.GUIZHAN_RESOURCES_BASE_URL }}/api/projects/${{ vars.GUIZHAN_RESOURCES_PROJECT_ID }}/versions" \
+          HTTP_RESPONSE=$(curl -w "\n%{http_code}" -X POST "${{ vars.GUIZHAN_RESOURCES_BASE_URL }}/api/projects/${{ vars.GUIZHAN_RESOURCES_PROJECT_ID }}/versions" \
             -H "Authorization: Bearer ${{ secrets.GUIZHAN_RESOURCES_TOKEN }}" \
             -F "data=$(cat payload.json)" \
-            -F "${{ steps.version.outputs.filename }}=@${{ steps.version.outputs.jar_path }};type=application/java-archive"
+            -F "${{ steps.version.outputs.filename }}=@${{ steps.version.outputs.jar_path }};type=application/java-archive")
+          HTTP_STATUS=$(echo "$HTTP_RESPONSE" | tail -n 1)
+          RESPONSE_BODY=$(echo "$HTTP_RESPONSE" | sed '$d')
+          echo "Response: $RESPONSE_BODY"
+          echo "HTTP Status: $HTTP_STATUS"
+          if [ "$HTTP_STATUS" -ne 200 ]; then
+            echo "Error: Upload failed with status $HTTP_STATUS"
+            exit 1
+          fi
+          echo "Upload successful!"
         env:
           GUIZHAN_RESOURCES_TOKEN: ${{ secrets.GUIZHAN_RESOURCES_TOKEN }}

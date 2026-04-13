@@ -1,0 +1,166 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+concurrency:
+  group: release-${{ github.ref_name }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  # Calculate version and create tag on master push
+  version-and-tag:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      tag: ${{ steps.version.outputs.tag }}
+      should_release: ${{ steps.version.outputs.should_release }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.BOT_SECRET }}
+
+      - name: Calculate next version
+        id: version
+        run: bash .github/scripts/next-version.sh
+
+      - name: Check if tag already exists
+        if: steps.version.outputs.should_release == 'true'
+        run: |
+          if git rev-parse "${{ steps.version.outputs.tag }}" >/dev/null 2>&1; then
+            echo "Error: Tag ${{ steps.version.outputs.tag }} already exists"
+            exit 1
+          fi
+
+      - name: Create git tag
+        if: steps.version.outputs.should_release == 'true'
+        run: |
+          git config user.name "${{ vars.BOT_NAME }}"
+          git config user.email "${{ secrets.BOT_EMAIL }}"
+          git tag -a "${{ steps.version.outputs.tag }}" -m "${{ steps.version.outputs.tag }}"
+          git push https://x-access-token:${{ secrets.BOT_SECRET }}@github.com/${{ github.repository }} "${{ steps.version.outputs.tag }}"
+
+  # Build and upload on tag push (including auto-created tags)
+  build-and-release:
+    runs-on: ubuntu-latest
+    needs: version-and-tag
+    if: always() && (github.ref_type == 'tag' || needs.version-and-tag.result == 'success')
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      mc_version: ${{ steps.read_mc_version.outputs.mc_version }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Determine version
+        id: version
+        run: |
+          if [[ "${{ github.ref_type }}" == "tag" ]]; then
+            # Tag push: extract version from tag name
+            VERSION=${GITHUB_REF_NAME#v}
+            echo "version=$VERSION" >> $GITHUB_OUTPUT
+            echo "tag=$GITHUB_REF_NAME" >> $GITHUB_OUTPUT
+            echo "Building from tag: $GITHUB_REF_NAME, version: $VERSION"
+          else
+            # Master push: use calculated version from previous job
+            echo "version=${{ needs.version-and-tag.outputs.version }}" >> $GITHUB_OUTPUT
+            echo "tag=${{ needs.version-and-tag.outputs.tag }}" >> $GITHUB_OUTPUT
+            echo "Building version: ${{ needs.version-and-tag.outputs.version }}"
+          fi
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v5
+        with:
+          java-version: 21
+          distribution: temurin
+
+      - name: Validate Gradle wrapper
+        uses: gradle/actions/wrapper-validation@v5
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v5
+
+      - name: Read Minecraft Version
+        id: read_mc_version
+        run: |
+          MC_VERSION=$(grep "^minecraft.version=" gradle.properties | cut -d'=' -f2)
+          if [ -z "$MC_VERSION" ]; then
+            echo "Error: Failed to read minecraft.version from gradle.properties"
+            exit 1
+          fi
+          echo "mc_version=$MC_VERSION" >> $GITHUB_OUTPUT
+          echo "Minecraft version: $MC_VERSION"
+
+      - name: Build with Gradle
+        run: ./gradlew spotlessCheck clean test shadowJar -Pplugin.version="${{ steps.version.outputs.version }}"
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v5
+        with:
+          name: RebarMobs-${{ steps.version.outputs.version }}
+          path: build/libs/*.jar
+
+  # Deploy to Guizhan Resources
+  deploy-gr:
+    needs: build-and-release
+    runs-on: ubuntu-latest
+    if: always() && needs.build-and-release.result == 'success'
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: RebarMobs-${{ needs.build-and-release.outputs.version }}
+          path: staging
+
+      - name: Get filename
+        id: filename
+        run: |
+          JAR_PATH=$(ls staging/RebarMobs-*.jar | head -n 1)
+          FILENAME=$(basename "$JAR_PATH")
+          echo "jar_path=$JAR_PATH" >> $GITHUB_OUTPUT
+          echo "filename=$FILENAME" >> $GITHUB_OUTPUT
+          echo "Jar: $FILENAME"
+
+      - name: Create JSON Payload
+        run: |
+          cat <<EOF > payload.json
+          {
+            "version": "${{ needs.build-and-release.outputs.version }}",
+            "name": "v${{ needs.build-and-release.outputs.version }}",
+            "channel": "dev",
+            "changelog": "",
+            "minecraft_versions": ["${{ needs.build-and-release.outputs.mc_version }}"],
+            "files": ["${{ steps.filename.outputs.filename }}"]
+          }
+          EOF
+
+      - name: Upload to Guizhan Resources
+        run: |
+          HTTP_RESPONSE=$(curl -w "\n%{http_code}" -X POST "${{ vars.GUIZHAN_RESOURCES_BASE_URL }}/api/projects/${{ vars.GUIZHAN_RESOURCES_PROJECT_ID }}/versions" \
+            -H "Authorization: Bearer ${{ secrets.GUIZHAN_RESOURCES_TOKEN }}" \
+            -F "data=$(cat payload.json)" \
+            -F "${{ steps.filename.outputs.filename }}=@${{ steps.filename.outputs.jar_path }};type=application/java-archive")
+          HTTP_STATUS=$(echo "$HTTP_RESPONSE" | tail -n 1)
+          RESPONSE_BODY=$(echo "$HTTP_RESPONSE" | sed '$d')
+          echo "Response: $RESPONSE_BODY"
+          echo "HTTP Status: $HTTP_STATUS"
+          if [ "$HTTP_STATUS" -ne 200 ]; then
+            echo "Error: Upload failed with status $HTTP_STATUS"
+            exit 1
+          fi
+          echo "Upload successful!"
+        env:
+          GUIZHAN_RESOURCES_TOKEN: ${{ secrets.GUIZHAN_RESOURCES_TOKEN }}

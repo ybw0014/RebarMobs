@@ -12,7 +12,6 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDeathEvent
-import java.util.logging.Level
 import kotlin.random.Random
 
 class MobHeadListener : Listener {

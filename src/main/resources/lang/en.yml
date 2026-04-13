@@ -145,8 +145,6 @@ item:
     name: "<reset>Panda Head"
   mob_head_wandering_trader:
     name: "<reset>Wandering Trader Head"
-  mob_head_piglin:
-    name: "<reset>Piglin Head"
   mob_head_zombified_piglin:
     name: "<reset>Zombified Piglin Head"
   mob_head_strider:

@@ -169,7 +169,6 @@ object RebarMobsItems : RebarItemRegistry(RebarMobs.instance()) {
         registerMobHead(EntityType.ZOMBIE_VILLAGER, PlayerHead.ENTITY_ZOMBIE_VILLAGER)
         registerMobHead(EntityType.RAVAGER, PlayerHead.ENTITY_RAVAGER)
         registerMobHead(EntityType.PILLAGER, PlayerHead.ENTITY_PILLAGER)
-        registerMobHead(EntityType.PIGLIN, PlayerHead.ENTITY_PIGLIN)
         registerMobHead(EntityType.ZOMBIFIED_PIGLIN, PlayerHead.ENTITY_ZOMBIFIED_PIGLIN)
         registerMobHead(EntityType.BOGGED, PlayerHead.ENTITY_BOGGED)
         registerMobHead(EntityType.BREEZE, PlayerHead.ENTITY_BREEZE)

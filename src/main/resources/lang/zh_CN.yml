@@ -1,0 +1,182 @@
+addon: "Rebar 生物"
+item:
+  soul_shard:
+    name: "<reset>灵魂碎片"
+    no-mob-type: "<red>未绑定"
+  corrupted_essence:
+    name: "<reset>腐化精华"
+  vile_dust:
+    name: "<reset>邪恶之尘"
+  corrupted_ingot:
+    name: "<reset>腐化锭"
+  vile_sword_frame:
+    name: "<reset>邪恶之剑框架"
+  soul_altar:
+    name: "<reset>灵魂祭坛"
+  soul_cage:
+    name: "<reset>灵魂笼子"
+    lore: |-
+      <arrow> 一座由腐化金属锻造的牢笼，贪婪地渴求灵魂。
+      <arrow> 它扭曲了生与死之间的界限。
+
+      <guidearrow> 使用<item:rebarmobs:soul_shard><insn>右键点击</insn>以激活。
+      <guidearrow> <insn>潜行 + 右键点击</insn>以收回<item:rebarmobs:soul_shard>并取消激活。
+    waila:
+      empty: "灵魂笼子 | <red>空"
+      filled: "灵魂笼子 | %mob-type% | 等级 %tier%"
+  cursed_fire:
+    name: "<reset>诅咒之火"
+  quartz_and_steel:
+    name: "<reset>石英打火石"
+  vile_sword:
+    name: "<reset>邪恶之剑"
+    lore: |-
+      <arrow> 主手手持该剑击杀
+      <arrow> 可额外获得一个灵魂。
+  mob_head_info:
+    name: "<reset>击杀生物"
+    lore: |-
+      <arrow> 击杀指定的生物有几率掉落其头颅。
+      <arrow> 斩首者附魔可额外增加几率。
+
+      <arrow> <attr>基础几率:</attr> %base-chance%
+      <arrow> <attr>斩首者几率:</attr> 每级%decapitator-chance%
+  mob_head_bat:
+    name: "<reset>蝙蝠头"
+  mob_head_blaze:
+    name: "<reset>烈焰人头"
+  mob_head_cave_spider:
+    name: "<reset>洞穴蜘蛛头"
+  mob_head_chicken:
+    name: "<reset>鸡头"
+  mob_head_cow:
+    name: "<reset>牛头"
+  mob_head_dolphin:
+    name: "<reset>海豚头"
+  mob_head_drowned:
+    name: "<reset>溺尸头"
+  mob_head_elder_guardian:
+    name: "<reset>远古守卫者头"
+  mob_head_enderman:
+    name: "<reset>末影人头"
+  mob_head_evoker:
+    name: "<reset>唤魔者头"
+  mob_head_ghast:
+    name: "<reset>恶魂头"
+  mob_head_guardian:
+    name: "<reset>守卫者头"
+  mob_head_horse:
+    name: "<reset>马头"
+  mob_head_husk:
+    name: "<reset>尸壳头"
+  mob_head_illusioner:
+    name: "<reset>幻术师头"
+  mob_head_iron_golem:
+    name: "<reset>铁傀儡头"
+  mob_head_llama:
+    name: "<reset>羊驼头"
+  mob_head_magma_cube:
+    name: "<reset>岩浆怪头"
+  mob_head_mooshroom:
+    name: "<reset>哞菇头"
+  mob_head_ocelot:
+    name: "<reset>豹猫头"
+  mob_head_parrot:
+    name: "<reset>鹦鹉头"
+  mob_head_pig:
+    name: "<reset>猪头"
+  mob_head_polar_bear:
+    name: "<reset>北极熊头"
+  mob_head_rabbit:
+    name: "<reset>兔头"
+  mob_head_sheep:
+    name: "<reset>羊头"
+  mob_head_shulker:
+    name: "<reset>潜影贝头"
+  mob_head_slime:
+    name: "<reset>史莱姆头"
+  mob_head_spider:
+    name: "<reset>蜘蛛头"
+  mob_head_squid:
+    name: "<reset>鱿鱼头"
+  mob_head_stray:
+    name: "<reset>流浪者头"
+  mob_head_turtle:
+    name: "<reset>海龟头"
+  mob_head_vex:
+    name: "<reset>恼鬼头"
+  mob_head_villager:
+    name: "<reset>村民头"
+  mob_head_vindicator:
+    name: "<reset>卫道士头"
+  mob_head_witch:
+    name: "<reset>女巫头"
+  mob_head_wither:
+    name: "<reset>凋灵头"
+  mob_head_zombie_villager:
+    name: "<reset>僵尸村民头"
+  mob_head_ravager:
+    name: "<reset>劫掠者头"
+  mob_head_pillager:
+    name: "<reset>掠夺者头"
+  mob_head_fox:
+    name: "<reset>狐狸头"
+  mob_head_panda:
+    name: "<reset>熊猫头"
+  mob_head_wandering_trader:
+    name: "<reset>流浪商人头"
+  mob_head_zombified_piglin:
+    name: "<reset>僵尸猪灵头"
+  mob_head_strider:
+    name: "<reset>炽足兽头"
+  mob_head_axolotl:
+    name: "<reset>美西螈头"
+  mob_head_glow_squid:
+    name: "<reset>发光鱿鱼头"
+  mob_head_goat:
+    name: "<reset>山羊头"
+  mob_head_allay:
+    name: "<reset>阿莱头"
+  mob_head_frog:
+    name: "<reset>青蛙头"
+  mob_head_tadpole:
+    name: "<reset>蝌蚪头"
+  mob_head_camel:
+    name: "<reset>骆驼头"
+  mob_head_sniffer:
+    name: "<reset>嗅探者头"
+  mob_head_armadillo:
+    name: "<reset>犰狳头"
+  mob_head_bogged:
+    name: "<reset>沼骸头"
+  mob_head_breeze:
+    name: "<reset>旋风人头"
+  mob_head_creaking:
+    name: "<reset>嘎吱头"
+  mob_head_happy_ghast:
+    name: "<reset>快乐恶魂头"
+  mob_head_copper_golem:
+    name: "<reset>铜傀儡头"
+  mob_head_nautilus:
+    name: "<reset>鹦鹉螺头"
+  mob_head_zombie_nautilus:
+    name: "<reset>僵尸鹦鹉螺头"
+  mob_head_camel_husk:
+    name: "<reset>骆驼尸壳头"
+  mob_head_parched:
+    name: "<reset>焦骸头"
+enchantment:
+  soul_stealer: "灵魂收割者"
+  decapitator: "斩首者"
+guide:
+  page:
+    rebar_mobs: "<reset>Rebar 生物"
+    resources_magic: "<reset>魔法资源"
+    blocks: "<reset>方块"
+command:
+  description: "RebarMobs 主命令"
+  enchantment_book:
+    description: "获取指定附魔和等级的附魔书（默认1级）"
+    invalid-enchantment: "<red>无效的附魔。"
+    invalid-level: "<red>无效的附魔等级。"
+    success: "<green>成功获得%enchantment%附魔书，等级%level%"

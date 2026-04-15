@@ -10,8 +10,10 @@ import io.github.pylonmc.rebar.item.base.RebarInteractor
 import io.papermc.paper.registry.RegistryAccess
 import io.papermc.paper.registry.RegistryKey
 import net.guizhanss.guizhanlib.kt.minecraft.extensions.isAir
-import net.guizhanss.guizhanlib.kt.rebar.utils.persistentItemData
+import net.guizhanss.guizhanlib.kt.rebar.utils.delegates.customModelDataString
+import net.guizhanss.guizhanlib.kt.rebar.utils.delegates.persistentItemData
 import net.guizhanss.rebarmobs.config.adapters.RebarMobsConfigAdapters
+import net.guizhanss.rebarmobs.datatypes.cmd.RebarMobsCustomModelDataTypes
 import net.guizhanss.rebarmobs.datatypes.persistent.RebarMobsPersistentDataTypes
 import net.guizhanss.rebarmobs.utils.RebarMobsKeys
 import net.guizhanss.rebarmobs.utils.refreshLore
@@ -34,7 +36,22 @@ class SoulShard(
     item: ItemStack,
 ) : RebarItem(item),
     RebarInteractor {
-    var mobType: EntityType? by persistentItemData(MOB_TYPE_KEY, RebarMobsPersistentDataTypes.ENTITY_TYPE, null)
+    private var mobTypePdc: EntityType? by persistentItemData(
+        MOB_TYPE_KEY,
+        RebarMobsPersistentDataTypes.ENTITY_TYPE,
+        null,
+    )
+    private var mobTypeCmd: EntityType? by customModelDataString(
+        MOB_TYPE_CMD_PREFIX,
+        RebarMobsCustomModelDataTypes.ENTITY_TYPE,
+    )
+    var mobType: EntityType?
+        get() = mobTypePdc.also { if (mobTypeCmd != it) mobTypeCmd = it }
+        set(value) {
+            mobTypePdc = value
+            mobTypeCmd = value
+        }
+
     var soulAmount: Int by persistentItemData(SOUL_AMOUNT_KEY, RebarSerializers.INTEGER, 0)
 
     fun getTier() = getTier(soulAmount)
@@ -79,6 +96,7 @@ class SoulShard(
     companion object : Listener {
         val MOB_TYPE_KEY = rmKey("mob_type")
         val SOUL_AMOUNT_KEY = rmKey("soul_amount")
+        val MOB_TYPE_CMD_PREFIX = "$MOB_TYPE_KEY:"
 
         private val settings = Settings.get(RebarMobsKeys.SOUL_SHARD)
 

@@ -13,9 +13,10 @@ import java.util.UUID
  */
 fun createPlayerHead(texture: String): ItemStack {
     val textureUrl = "https://textures.minecraft.net/texture/$texture"
+    val uuid = UUID.nameUUIDFromBytes(texture.toByteArray())
     return ItemStack(Material.PLAYER_HEAD).edit {
         meta {
-            val profile = Bukkit.createProfile(UUID.randomUUID())
+            val profile = Bukkit.createProfile(uuid)
             val profileTextures = profile.textures
             profileTextures.skin = URI(textureUrl).toURL()
             profile.setTextures(profileTextures)

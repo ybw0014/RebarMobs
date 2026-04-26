@@ -4,6 +4,7 @@ import io.github.pylonmc.rebar.block.BlockStorage
 import io.github.pylonmc.rebar.block.RebarBlock
 import io.github.pylonmc.rebar.block.context.BlockCreateContext
 import io.github.pylonmc.rebar.datatypes.RebarSerializers
+import io.github.pylonmc.rebar.item.builder.ItemStackBuilder
 import net.guizhanss.guizhanlib.kt.minecraft.items.edit
 import net.guizhanss.rebarmobs.RebarMobs
 import net.guizhanss.rebarmobs.recipes.CursingRecipe
@@ -14,7 +15,6 @@ import org.bukkit.entity.Item
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
-import org.bukkit.event.block.BlockSpreadEvent
 import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataContainer
@@ -29,21 +29,17 @@ class CursedFire : RebarBlock {
 
     constructor(block: Block, pdc: PersistentDataContainer) : super(block, pdc)
 
+    override fun getBlockTextureItem(): ItemStack {
+        val builder = ItemStackBuilder.of(Material.BARRIER)
+        builder.editPdc { it.set(rebarBlockTextureEntityKey, RebarSerializers.BOOLEAN, true) }
+        builder.addCustomModelDataString(schema.key.toString())
+        return builder.build()
+    }
+
     companion object : Listener {
         const val PROCESS_COOLDOWN_MS = 2000L
 
         fun isCursedFire(block: Block): Boolean = BlockStorage.get(block) is CursedFire
-
-        @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-        fun onFireSpread(event: BlockSpreadEvent) {
-            if (!isCursedFire(event.source)) return
-
-            val newBlock = event.block
-            if (newBlock.type == Material.FIRE) {
-                newBlock.type = Material.AIR
-                BlockStorage.placeBlock(newBlock, RebarMobsKeys.CURSED_FIRE)
-            }
-        }
 
         @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
         fun onEntityDamage(event: EntityDamageEvent) {

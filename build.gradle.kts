@@ -11,7 +11,7 @@ val effectiveRebarVersion = if (rebarSnapshot) rebarSnapshotVersion else rebarVe
 val pylonVersion = providers.gradleProperty("pylon.version").get()
 
 plugins {
-    kotlin("jvm") version "2.3.0"
+    kotlin("jvm") version "2.4.20"
     id("com.gradleup.shadow") version "9.6.1"
     id("de.eldoria.plugin-yml.paper") version "0.9.0"
     id("xyz.jpenilla.run-paper") version "3.0.2"
